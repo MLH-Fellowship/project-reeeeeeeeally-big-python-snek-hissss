@@ -244,6 +244,25 @@ body {
     border-radius: 50%;
 }
 
+.form {
+    text-align: center;
+}
+
+.form-section {
+   padding: 25px;
+}
+
+.timeline {
+    text-align: center;
+    /* background-color: #F8F0E3; */
+}
+
+.timeline-posts{
+    margin: 0 auto;
+    max-width: 500px;
+    text-align: center;
+}
+
 /* for the three columns */
 @media (min-width: 1150px) {
     .about-groupmate {
