@@ -37,8 +37,9 @@
             const post = new URLSearchParams(pre_post);
 
             console.log([...post])
-
-            fetch('http://brandonsomoza.duckdns.org:5000/timeline', {
+            // http://127.0.0.1:5000/api/timeline_post
+            // http://brandonsomoza.duckdns.org:5000/timeline
+            fetch('http://brandonsomoza.duckdns.org:5000/api/timeline_post', {
                 method: "POST",
                 body: post,
             })
