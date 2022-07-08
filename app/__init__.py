@@ -1,6 +1,7 @@
 import json
 import os
 import datetime
+import re
 
 from dotenv import load_dotenv
 from flask import Flask, render_template, request
@@ -96,11 +97,23 @@ def timeline():
 # Adds a timeline post
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
-    name = request.form['name']
-    email = request.form['email']
-    content = request.form['content']
-    timeline_post = TimelinePost.create(name=name, email=email, content=content)
+    name = request.form.get('name')
+    email = request.form.get('email')
+    content = request.form.get('content')
 
+    # Adding regex pattern for email validation
+    # pattern = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+    pattern = '([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
+
+    if name == None:
+        return "Invalid name", 400
+    elif content == None or content == "":
+        return "Invalid content", 400
+    elif not (re.search(pattern, email)):
+        return "Invalid email", 400
+
+
+    timeline_post = TimelinePost.create(name=name, email=email, content=content)
     return model_to_dict(timeline_post)
 
 # Gets a timeline post
@@ -117,9 +130,14 @@ TimelinePost.select().order_by(TimelinePost.created_at.desc())
 # Deletes a timeline post
 @app.route('/api/timeline_post', methods=["DELETE"])
 def delete_time_line_post():
-    id = request.form['id']
-    TimelinePost.delete_by_id(id)
-    return ""
+    sql = TimelinePost.delete()
+    sql.execute
+    return {
+        'timeline_posts': [
+            model_to_dict(p)
+            for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())
+        ]
+    }
     
 
     
