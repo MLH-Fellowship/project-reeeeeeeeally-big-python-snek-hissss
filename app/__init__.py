@@ -40,15 +40,6 @@ else:
         port=3306
     )
 
-# Connect to the database
-# mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
-#     user=os.getenv("MYSQL_USER"),
-#     password=os.getenv("MYSQL_PASSWORD"),
-#     host=os.getenv("MYSQL_HOST"),
-#     port=3306
-# )
-# print(mydb)
-
 # Timeline 
 class TimelinePost(Model):
     name = CharField()
